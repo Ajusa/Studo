@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <link rel="stylesheet" href="css/phonon.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <script src="lib/vue.js"></script>
+    <script src="lib/sortable.min.js"></script>
+    <script src="lib/vue-sortable.js"></script>
+    <script src="https://cdn.jsdelivr.net/chrono/1.2.3/chrono.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.5.3/css/tachyons.min.css" />
+    <title>Stodo</title>
+</head>
+
+<body>
+    <template id="task">
+        <input type="checkbox" class="checkbox" v-model="data.done">
+        <span @click="popover" class="w-100">{{data.title}}</span>
+    </template>
+    <!-- Panel tags go here -->
+    <div id="taskInfo" class="panel-full">
+        <header class="header-bar">
+            <a class="btn icon icon-close pull-right" href="#" data-panel-close="true"></a>
+            <h1 class="pl2 mb3 mt0 title">Edit Task</h1>
+        </header>
+        <div class="content padded-full">
+            <input type="text" placeholder="Full name">
+            <p class="padded-full"></p>
+        </div>
+    </div>
+    <!-- Side Panel tags go here -->
+    <!-- Notification tags go here -->
+    <!-- Dialog tags go here -->
+    <!-- the home page is the default one. This page does not require to call its content because we define on its tag.-->
+    <div>
+        <header class="header-bar">
+            <div class="center animated slideInLeft">
+                <h1 class="title">Stodo</h1>
+            </div>
+        </header>
+        <div class="content">
+            <ul class="list">
+                <li class="divider">TODO</li>
+            </ul>
+            <ul class="list" v-sortable>
+                <li class=" padded-list animated" v-for="task in tasks" v-if="!task.done" transition="slide">
+                    <task :data="task"></task>
+                </li>
+            </ul>
+            <ul class="list">
+                <li class="divider">DONE</li>
+                <li class=" padded-list animated" v-for="task in tasks" v-if="task.done" transition="slide">
+                    <task :data="task"></task>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <button @click="newTask" class="floating-action padded-full icon icon-add active primary"></button>
+    <!-- for the second page, Phonon will load its content. -->
+    <!-- scripts -->
+    <script src="js/phonon.js"></script>
+    <!-- our app config -->
+    <script>
+    </script>
+    <script src="lib/util.js"></script>
+    <script src="views/alert.js"></script>
+    <script src="views/stats/question.js"></script>
+    <script src="views/tasks/root.js"></script>
+    <script src="views/stats/root.js"></script>
+    <script src="views/main.js"></script>
+</body>
+
+</html>
